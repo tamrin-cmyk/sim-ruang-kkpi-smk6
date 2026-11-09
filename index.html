@@ -362,15 +362,14 @@
         // ==============================================================
         // PERHATIAN 1: GANTI BAGIAN INI DENGAN CONFIG FIREBASE ANDA
         // ==============================================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyDrGncd2pXnWnkyUMBMsDABu3ugoVIdZfU",
-            authDomain: "simruang-kkpi-smkn-6-tebo.firebaseapp.com",
-            projectId: "simruang-kkpi-smkn-6-tebo",
-            storageBucket: "simruang-kkpi-smkn-6-tebo.firebasestorage.app",
-            messagingSenderId: "126891551227",
-            appId: "1:126891551227:web:cec027b5489a5795c6435e"
-        };
-
+   const firebaseConfig = {
+  apiKey: "AIzaSyDrGncd2pXnWnkyUMBMsDABu3ugoVIdZfU",
+  authDomain: "simruang-kkpi-smkn-6-tebo.firebaseapp.com",
+  projectId: "simruang-kkpi-smkn-6-tebo",
+  storageBucket: "simruang-kkpi-smkn-6-tebo.firebasestorage.app",
+  messagingSenderId: "126891551227",
+  appId: "1:126891551227:web:cec027b5489a5795c6435e"
+};
         const app = initializeApp(firebaseConfig);
         auth = getAuth(app);
         db = getFirestore(app);
