@@ -31,21 +31,11 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8; 
         }
-        /* Modal Animation */
-        .modal-enter {
-            opacity: 0;
-            transform: scale(0.9);
-            transition: all 0.3s ease-out;
-        }
-        .modal-enter-active {
-            opacity: 1;
-            transform: scale(1);
-        }
     </style>
 </head>
 <body class="text-gray-800 antialiased h-screen flex overflow-hidden">
 
-    <!-- SETUP PROFILE OVERLAY (Shown on first load if profile incomplete) -->
+    <!-- SETUP PROFILE OVERLAY -->
     <div id="setup-profile-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full mx-4 transition-all transform scale-100">
             <div class="text-center mb-6">
@@ -129,7 +119,7 @@
         </nav>
         <div class="p-4 border-t border-slate-700">
             <button onclick="resetProfile()" class="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm text-slate-400 hover:text-white transition-colors">
-                <i class="ph ph-sign-out"></i> Ganti Profil (Demo)
+                <i class="ph ph-sign-out"></i> Logout / Ganti Profil
             </button>
         </div>
     </aside>
@@ -162,7 +152,6 @@
 
     <!-- Main Content Area -->
     <main class="flex-1 flex flex-col h-full bg-slate-50 pt-16 md:pt-0 overflow-y-auto">
-        
         <!-- DASHBOARD SECTION -->
         <section id="sec-dashboard" class="p-4 md:p-8 space-y-6">
             <header>
@@ -201,7 +190,7 @@
                 </div>
             </div>
 
-            <!-- Recent Bookings (My Bookings) -->
+            <!-- Recent Bookings -->
             <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 flex justify-between items-center">
                     <h3 class="text-lg font-bold text-slate-800" id="title-recent">Peminjaman Terbaru Saya</h3>
@@ -219,7 +208,6 @@
                             </tr>
                         </thead>
                         <tbody id="table-recent-body" class="text-sm">
-                            <!-- Rows injected by JS -->
                             <tr><td colspan="5" class="p-8 text-center text-slate-400">Memuat data...</td></tr>
                         </tbody>
                     </table>
@@ -232,64 +220,54 @@
             <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 bg-slate-50">
                     <h2 class="text-xl font-bold text-slate-800">Formulir Peminjaman Ruang KKPI</h2>
-                    <p class="text-sm text-slate-500 mt-1">Sesuai SOP, pengajuan wajib minimal 1 hari sebelum pelaksanaan.</p>
                 </div>
                 <form id="booking-form" class="p-6 space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Left Col -->
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Mata Pelajaran / Kegiatan <span class="text-red-500">*</span></label>
-                                <input type="text" id="f-mapel" required class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="Contoh: Simulasi Digital / Ujian">
+                                <input type="text" id="f-mapel" required class="w-full p-2.5 border border-slate-300 rounded-lg outline-none">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Kelas <span class="text-red-500">*</span></label>
-                                <input type="text" id="f-kelas" required class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="Contoh: X TKJ 1">
+                                <input type="text" id="f-kelas" required class="w-full p-2.5 border border-slate-300 rounded-lg outline-none">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Jumlah Peserta Didik <span class="text-red-500">*</span></label>
-                                <input type="number" id="f-siswa" required min="1" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="0">
+                                <input type="number" id="f-siswa" required min="1" class="w-full p-2.5 border border-slate-300 rounded-lg outline-none">
                             </div>
                         </div>
-                        <!-- Right Col -->
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Hari / Tanggal <span class="text-red-500">*</span></label>
-                                <input type="date" id="f-tanggal" required class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                                <input type="date" id="f-tanggal" required class="w-full p-2.5 border border-slate-300 rounded-lg outline-none">
                             </div>
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
                                     <label class="block text-sm font-medium text-slate-700 mb-1">Mulai <span class="text-red-500">*</span></label>
-                                    <input type="time" id="f-mulai" required class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                                    <input type="time" id="f-mulai" required class="w-full p-2.5 border border-slate-300 rounded-lg outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-slate-700 mb-1">Selesai <span class="text-red-500">*</span></label>
-                                    <input type="time" id="f-selesai" required class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                                    <input type="time" id="f-selesai" required class="w-full p-2.5 border border-slate-300 rounded-lg outline-none">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Prioritas (Khusus) <span class="text-xs font-normal text-slate-400">- Opsional</span></label>
-                                <select id="f-prioritas" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Prioritas (Opsional)</label>
+                                <select id="f-prioritas" class="w-full p-2.5 border border-slate-300 rounded-lg outline-none">
                                     <option value="normal">Reguler / Terjadwal</option>
-                                    <option value="ujian">Asesmen / Ujian / Agenda Resmi</option>
+                                    <option value="ujian">Asesmen / Ujian</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Tujuan Penggunaan & Kebutuhan Khusus</label>
-                        <textarea id="f-tujuan" rows="3" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="Jelaskan secara singkat... (contoh: Butuh proyektor aktif)"></textarea>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Tujuan Penggunaan & Kebutuhan</label>
+                        <textarea id="f-tujuan" rows="3" class="w-full p-2.5 border border-slate-300 rounded-lg outline-none"></textarea>
                     </div>
-                    
-                    <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 flex gap-3 text-sm text-blue-800">
-                        <i class="ph-fill ph-info text-xl shrink-0"></i>
-                        <p>Dengan mengajukan form ini, saya menyatakan bersedia mematuhi seluruh tata tertib penggunaan ruang KKPI dan bertanggung jawab mengawasi peserta didik (Pasal 7-9 SOP).</p>
-                    </div>
-
-                    <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
-                        <button type="button" onclick="document.getElementById('booking-form').reset()" class="px-5 py-2.5 text-slate-600 font-medium hover:bg-slate-100 rounded-lg transition">Reset</button>
-                        <button type="submit" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition flex items-center gap-2">
-                            <i class="ph ph-paper-plane-right"></i> Ajukan Jadwal
+                    <div class="flex justify-end pt-4">
+                        <button type="submit" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition">
+                            Ajukan Jadwal
                         </button>
                     </div>
                 </form>
@@ -298,27 +276,17 @@
 
         <!-- JADWAL RUANG SECTION -->
         <section id="sec-jadwal" class="p-4 md:p-8 space-y-6 hidden">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                    <h2 class="text-2xl md:text-3xl font-bold text-slate-800">Jadwal Ruang KKPI</h2>
-                    <p class="text-slate-500 mt-1">Lihat ketersediaan ruang sebelum mengajukan peminjaman.</p>
-                </div>
-                <div class="flex items-center gap-2 bg-white border border-slate-200 rounded-lg p-1">
-                    <button id="btn-jadwal-list" class="px-4 py-2 text-sm font-medium rounded-md bg-slate-100 text-slate-800 shadow-sm transition">Tabel</button>
-                </div>
-            </div>
-
+            <header>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800">Jadwal Ruang KKPI</h2>
+            </header>
             <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
-                <!-- Filter Form -->
-                <div class="p-4 border-b border-slate-100 bg-slate-50 flex gap-4 items-end">
+                <div class="p-4 bg-slate-50 flex gap-4 items-end">
                     <div>
-                        <label class="block text-xs font-medium text-slate-500 mb-1">Pilih Tanggal</label>
-                        <input type="date" id="filter-date" class="p-2 border border-slate-300 rounded-lg text-sm outline-none focus:border-blue-500">
+                        <input type="date" id="filter-date" class="p-2 border border-slate-300 rounded-lg text-sm outline-none">
                     </div>
-                    <button onclick="renderJadwal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition">Filter</button>
-                    <button onclick="document.getElementById('filter-date').value=''; renderJadwal();" class="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-300 transition">Semua</button>
+                    <button onclick="renderJadwal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">Filter</button>
+                    <button onclick="document.getElementById('filter-date').value=''; renderJadwal();" class="bg-slate-200 px-4 py-2 rounded-lg text-sm">Semua</button>
                 </div>
-
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -327,24 +295,19 @@
                                 <th class="p-4 font-medium">Waktu</th>
                                 <th class="p-4 font-medium">Nama Guru</th>
                                 <th class="p-4 font-medium">Kegiatan/Kelas</th>
-                                <th class="p-4 font-medium text-center">Status</th>
                             </tr>
                         </thead>
-                        <tbody id="table-jadwal-body" class="text-sm">
-                            <!-- Rows injected by JS -->
-                        </tbody>
+                        <tbody id="table-jadwal-body" class="text-sm"></tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- MANAJEMEN PERSETUJUAN SECTION (Admin Only) -->
+        <!-- MANAJEMEN PERSETUJUAN SECTION -->
         <section id="sec-persetujuan" class="p-4 md:p-8 space-y-6 hidden">
             <header>
                 <h2 class="text-2xl md:text-3xl font-bold text-slate-800">Manajemen Persetujuan</h2>
-                <p class="text-slate-500 mt-1">Tinjau, setujui, dan selesaikan benturan jadwal (Wewenang Pengelola).</p>
             </header>
-
             <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
@@ -353,65 +316,53 @@
                                 <th class="p-4 font-medium">Tgl & Waktu</th>
                                 <th class="p-4 font-medium">Pengaju</th>
                                 <th class="p-4 font-medium">Detail</th>
-                                <th class="p-4 font-medium text-center">Aksi / Resolusi</th>
+                                <th class="p-4 font-medium text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="table-approval-body" class="text-sm">
-                            <!-- Rows injected by JS -->
-                        </tbody>
+                        <tbody id="table-approval-body" class="text-sm"></tbody>
                     </table>
                 </div>
             </div>
         </section>
-
     </main>
 
     <!-- Modal Penyelesaian Bentrok -->
     <div id="modal-resolusi" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-[60] flex items-center justify-center hidden">
         <div class="bg-white rounded-xl shadow-xl p-6 max-w-md w-full mx-4">
-            <h3 class="text-lg font-bold text-slate-800 mb-2 border-b pb-2">Resolusi Jadwal</h3>
-            <p class="text-sm text-slate-600 mb-4">Sesuai Pasal 5, pilih alternatif penyelesaian jika terjadi benturan atau ubah status persetujuan.</p>
-            
+            <h3 class="text-lg font-bold text-slate-800 mb-4">Resolusi Jadwal</h3>
             <input type="hidden" id="res-id">
-            
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Ubah Status</label>
-                    <select id="res-status" class="w-full p-2.5 border border-slate-300 rounded-lg outline-none focus:border-blue-500">
+                    <label class="block text-sm font-medium mb-1">Ubah Status</label>
+                    <select id="res-status" class="w-full p-2.5 border border-slate-300 rounded-lg outline-none">
                         <option value="Disetujui">Setujui (Disetujui)</option>
                         <option value="Dibatalkan">Tolak / Batalkan (Dibatalkan)</option>
                         <option value="Reschedule">Jadwal Ulang (Reschedule)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Catatan Pengelola / Alasan</label>
-                    <textarea id="res-note" rows="2" class="w-full p-2.5 border border-slate-300 rounded-lg outline-none focus:border-blue-500" placeholder="Contoh: Jadwal diubah ke hari esok karena ada ujian..."></textarea>
+                    <label class="block text-sm font-medium mb-1">Catatan Pengelola</label>
+                    <textarea id="res-note" rows="2" class="w-full p-2.5 border border-slate-300 rounded-lg outline-none"></textarea>
                 </div>
             </div>
-
             <div class="flex justify-end gap-3 mt-6">
-                <button onclick="closeModal('modal-resolusi')" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition">Batal</button>
-                <button onclick="simpanResolusi()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Simpan Keputusan</button>
+                <button onclick="closeModal('modal-resolusi')" class="px-4 py-2 bg-slate-100 rounded-lg">Batal</button>
+                <button onclick="simpanResolusi()" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Simpan</button>
             </div>
         </div>
     </div>
 
 
-    <!-- Firebase App (the core Firebase SDK) -->
+    <!-- Firebase App -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, query, onSnapshot, addDoc, updateDoc, deleteDoc, serverTimestamp, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, query, onSnapshot, addDoc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Global State
-        let db, auth, currentUserData;
-        let allBookings = [];
-        let currentUserId = "";
-
-        // Environment configs (Compatible with Immersive Environment & Standard Web)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'sim-ruang-kkpi-demo';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            // Replace with your real Firebase config if deploying outside
+        // ==============================================================
+        // PERHATIAN 1: GANTI BAGIAN INI DENGAN CONFIG FIREBASE ANDA
+        // ==============================================================
+        const firebaseConfig = {
             apiKey: "AIzaSyDrGncd2pXnWnkyUMBMsDABu3ugoVIdZfU",
             authDomain: "simruang-kkpi-smkn-6-tebo.firebaseapp.com",
             projectId: "simruang-kkpi-smkn-6-tebo",
@@ -420,36 +371,35 @@
             appId: "1:126891551227:web:cec027b5489a5795c6435e"
         };
 
-        // Initialize App
         const app = initializeApp(firebaseConfig);
         auth = getAuth(app);
         db = getFirestore(app);
 
-        // Paths based on System Rules
-        const USERS_PATH = `artifacts/${appId}/public/data/users`;
-        const BOOKINGS_PATH = `artifacts/${appId}/public/data/bookings`;
+        // ==============================================================
+        // PERHATIAN 2: PATH DATABASE SUDAH DIPERBAIKI MENJADI STANDAR
+        // ==============================================================
+        const USERS_PATH = 'users'; 
+        const BOOKINGS_PATH = 'bookings';
 
-        // -------------------------------------------------------------
-        // INITIALIZATION & AUTH
-        // -------------------------------------------------------------
+        let currentUserData;
+        let allBookings = [];
+        let currentUserId = "";
+
         async function init() {
             try {
-                // Auth Rule 3: Always authenticate FIRST
-                if (typeof __initial_auth_token !== 'undefined') {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
-                if (!auth.currentUser) throw new Error("Auth failed");
+                // ==============================================================
+                // PERHATIAN 3: PASTIKAN "ANONYMOUS SIGN-IN" AKTIF DI FIREBASE
+                // Buka Firebase Console > Authentication > Sign-in method > Aktifkan "Anonymous"
+                // ==============================================================
+                await signInAnonymously(auth);
+                
+                if (!auth.currentUser) throw new Error("Gagal login anonim.");
                 currentUserId = auth.currentUser.uid;
 
-                // Check Profile
                 await checkProfile();
-
             } catch (error) {
                 console.error("Initialization Error:", error);
-                showAlert("Kesalahan Sistem", "Gagal terhubung ke database. " + error.message);
+                showAlert("Kesalahan Sistem", "Gagal terhubung ke database. Pastikan Config benar dan Anonymous Auth aktif di Firebase Anda. Detail: " + error.message);
             }
         }
 
@@ -462,18 +412,14 @@
                 setupUIForUser();
                 subscribeToBookings();
             } else {
-                // Show profile setup modal
                 document.getElementById('setup-profile-modal').classList.remove('hidden');
             }
         }
 
-        // Profile Form Submit
         document.getElementById('setup-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('setup-name').value;
             const role = document.getElementById('setup-role').value;
-
-            if(!auth.currentUser) return; // Guard clause
 
             try {
                 const userRef = doc(db, USERS_PATH, currentUserId);
@@ -487,11 +433,10 @@
                 showAlert("Berhasil", "Profil berhasil disimpan!");
             } catch (error) {
                 console.error("Error saving profile:", error);
-                showAlert("Error", "Gagal menyimpan profil: " + error.message);
+                showAlert("Error", "Gagal menyimpan profil (Periksa Firestore Rules). " + error.message);
             }
         });
 
-        // Expose function to reset profile for demo purposes
         window.resetProfile = async function() {
              if(!auth.currentUser) return;
              await deleteDoc(doc(db, USERS_PATH, currentUserId));
@@ -500,7 +445,7 @@
 
         function setupUIForUser() {
             document.getElementById('sidebar-name').innerText = currentUserData.namaLengkap;
-            document.getElementById('sidebar-role').innerText = currentUserData.role === 'pengelola' ? 'Pengelola (Sarpras)' : 'Guru';
+            document.getElementById('sidebar-role').innerText = currentUserData.role === 'pengelola' ? 'Pengelola' : 'Guru';
             document.getElementById('sidebar-initial').innerText = currentUserData.namaLengkap.charAt(0).toUpperCase();
 
             if (currentUserData.role === 'pengelola') {
@@ -510,26 +455,18 @@
             }
         }
 
-        // -------------------------------------------------------------
-        // DATABASE OPERATIONS (Firestore)
-        // -------------------------------------------------------------
         function subscribeToBookings() {
-            if (!auth.currentUser) return;
-
             const q = query(collection(db, BOOKINGS_PATH));
-            
-            // Required Snapshot Error handling
             onSnapshot(q, (snapshot) => {
                 allBookings = [];
                 snapshot.forEach((doc) => {
                     allBookings.push({ id: doc.id, ...doc.data() });
                 });
                 
-                // Sort locally (No complex queries per Rule 2)
                 allBookings.sort((a, b) => {
                     const dateA = new Date(a.tanggal + 'T' + a.waktu_mulai);
                     const dateB = new Date(b.tanggal + 'T' + b.waktu_mulai);
-                    return dateB - dateA; // Descending
+                    return dateB - dateA; 
                 });
 
                 updateDashboardStats();
@@ -543,11 +480,8 @@
             });
         }
 
-        // Handle Booking Submission
         document.getElementById('booking-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            if(!auth.currentUser) return;
-
             const mapel = document.getElementById('f-mapel').value;
             const kelas = document.getElementById('f-kelas').value;
             const siswa = document.getElementById('f-siswa').value;
@@ -558,21 +492,8 @@
             const tujuan = document.getElementById('f-tujuan').value;
 
             if(mulai >= selesai) {
-                showAlert("Kesalahan Form", "Waktu selesai harus lebih besar dari waktu mulai.");
+                showAlert("Kesalahan", "Waktu selesai harus lebih besar dari mulai.");
                 return;
-            }
-
-            // Simple client-side conflict check (Optional, informative only)
-            const hasConflict = allBookings.some(b => 
-                b.status === 'Disetujui' && 
-                b.tanggal === tanggal &&
-                ((mulai >= b.waktu_mulai && mulai < b.waktu_selesai) || 
-                 (selesai > b.waktu_mulai && selesai <= b.waktu_selesai) ||
-                 (mulai <= b.waktu_mulai && selesai >= b.waktu_selesai))
-            );
-
-            if(hasConflict) {
-                 showAlert("Peringatan Benturan!", "Terdapat jadwal yang telah disetujui pada waktu tersebut. Pengelola akan meninjau dan menyelesaikan resolusi berdasarkan prioritas (SOP Pasal 5).");
             }
 
             const payload = {
@@ -586,55 +507,34 @@
                 waktu_selesai: selesai,
                 prioritas: prioritas,
                 tujuan: tujuan,
-                status: 'Menunggu', // Default state
+                status: 'Menunggu', 
                 catatan_pengelola: '',
                 createdAt: serverTimestamp()
             };
 
             try {
-                // Change button state
-                const btn = e.target.querySelector('button[type="submit"]');
-                const oldHtml = btn.innerHTML;
-                btn.innerHTML = 'Memproses...';
-                btn.disabled = true;
-
                 await addDoc(collection(db, BOOKINGS_PATH), payload);
-                
-                showAlert("Sukses", "Permohonan jadwal berhasil dikirim. Silakan tunggu konfirmasi dari Pengelola.");
+                showAlert("Sukses", "Permohonan jadwal berhasil dikirim.");
                 e.target.reset();
                 navigate('dashboard');
             } catch (error) {
-                console.error(error);
-                showAlert("Gagal", "Tidak dapat mengirim permohonan. " + error.message);
-            } finally {
-                const btn = e.target.querySelector('button[type="submit"]');
-                btn.innerHTML = '<i class="ph ph-paper-plane-right"></i> Ajukan Jadwal';
-                btn.disabled = false;
+                showAlert("Gagal", "Tidak dapat mengirim (Periksa Firestore Rules). " + error.message);
             }
         });
-
-        // -------------------------------------------------------------
-        // UI RENDERING
-        // -------------------------------------------------------------
         
         function updateDashboardStats() {
             let myApproved = 0, pending = 0, totalStudents = 0;
-            
             allBookings.forEach(b => {
                 if(b.status === 'Disetujui') {
-                    if(b.uid_guru === currentUserId || currentUserData.role === 'pengelola') {
-                        myApproved++;
-                    }
+                    if(b.uid_guru === currentUserId || currentUserData.role === 'pengelola') myApproved++;
                     totalStudents += (b.jumlah_siswa || 0);
                 }
                 if(b.status === 'Menunggu') pending++;
             });
-
             document.getElementById('stat-approved').innerText = myApproved;
             document.getElementById('stat-pending').innerText = pending;
             document.getElementById('stat-students').innerText = totalStudents;
-
-            // Notification badge
+            
             const badge = document.getElementById('badge-pending');
             if(pending > 0 && currentUserData.role === 'pengelola') {
                 badge.innerText = pending;
@@ -647,40 +547,21 @@
         function renderRecentTable() {
             const tbody = document.getElementById('table-recent-body');
             tbody.innerHTML = '';
-            
-            let filtered = allBookings;
-            // Jika guru, tampilkan miliknya saja. Pengelola lihat semua (atau terbaru)
-            if(currentUserData.role === 'guru') {
-                filtered = allBookings.filter(b => b.uid_guru === currentUserId);
-                document.getElementById('title-recent').innerText = "Peminjaman Terbaru Saya";
-            } else {
-                document.getElementById('title-recent').innerText = "Semua Peminjaman Terbaru";
-            }
-
-            const recent = filtered.slice(0, 5); // 5 items max for dashboard
+            let filtered = currentUserData.role === 'guru' ? allBookings.filter(b => b.uid_guru === currentUserId) : allBookings;
+            const recent = filtered.slice(0, 5); 
 
             if(recent.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400 text-sm">Belum ada data peminjaman.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400">Belum ada data peminjaman.</td></tr>`;
                 return;
             }
-
             recent.forEach(b => {
                 const badgeClass = getStatusBadgeClass(b.status);
-                let actions = '';
-                
-                // Allow delete if status is Menunggu and owned by user
-                if(b.status === 'Menunggu' && b.uid_guru === currentUserId) {
-                    actions = `<button onclick="hapusBooking('${b.id}')" class="text-red-500 hover:text-red-700 bg-red-50 p-1.5 rounded" title="Batalkan"><i class="ph-bold ph-trash"></i></button>`;
-                }
-
+                let actions = (b.status === 'Menunggu' && b.uid_guru === currentUserId) ? `<button onclick="hapusBooking('${b.id}')" class="text-red-500 hover:text-red-700 bg-red-50 p-1 rounded"><i class="ph-bold ph-trash"></i></button>` : '';
                 tbody.innerHTML += `
-                    <tr class="border-b border-slate-50 hover:bg-slate-50 transition">
+                    <tr class="border-b border-slate-50">
                         <td class="p-4 whitespace-nowrap">${formatDate(b.tanggal)}</td>
-                        <td class="p-4 whitespace-nowrap font-medium text-slate-700">${b.waktu_mulai} - ${b.waktu_selesai}</td>
-                        <td class="p-4">
-                            <div class="font-medium text-slate-800">${b.mapel_kegiatan}</div>
-                            <div class="text-xs text-slate-500">Kelas: ${b.kelas} • Guru: ${b.nama_guru}</div>
-                        </td>
+                        <td class="p-4 font-medium">${b.waktu_mulai} - ${b.waktu_selesai}</td>
+                        <td class="p-4"><div>${b.mapel_kegiatan}</div><div class="text-xs text-slate-500">${b.kelas}</div></td>
                         <td class="p-4"><span class="${badgeClass}">${b.status}</span></td>
                         <td class="p-4 text-right">${actions}</td>
                     </tr>
@@ -692,36 +573,21 @@
             const tbody = document.getElementById('table-jadwal-body');
             const filterDate = document.getElementById('filter-date').value;
             tbody.innerHTML = '';
-
             let displayList = allBookings.filter(b => b.status === 'Disetujui');
+            if(filterDate) displayList = displayList.filter(b => b.tanggal === filterDate);
+            displayList.sort((a, b) => new Date(a.tanggal+'T'+a.waktu_mulai) - new Date(b.tanggal+'T'+b.waktu_mulai));
             
-            if(filterDate) {
-                displayList = displayList.filter(b => b.tanggal === filterDate);
-            }
-
-            // Sort by date ascending for Jadwal view
-            displayList.sort((a, b) => {
-                const dateA = new Date(a.tanggal + 'T' + a.waktu_mulai);
-                const dateB = new Date(b.tanggal + 'T' + b.waktu_mulai);
-                return dateA - dateB; 
-            });
-
             if(displayList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400 text-sm">Tidak ada jadwal aktif${filterDate ? ' pada tanggal tersebut' : ''}.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400">Tidak ada jadwal.</td></tr>`;
                 return;
             }
-
             displayList.forEach(b => {
                 tbody.innerHTML += `
-                    <tr class="border-b border-slate-50 hover:bg-slate-50 transition">
-                        <td class="p-4 whitespace-nowrap">${formatDate(b.tanggal)}</td>
-                        <td class="p-4 whitespace-nowrap font-bold text-blue-600">${b.waktu_mulai} - ${b.waktu_selesai}</td>
-                        <td class="p-4 font-medium">${b.nama_guru}</td>
-                        <td class="p-4">
-                            <div>${b.mapel_kegiatan}</div>
-                            <div class="text-xs text-slate-500">Kelas ${b.kelas} (${b.jumlah_siswa} Siswa)</div>
-                        </td>
-                        <td class="p-4 text-center"><span class="bg-green-100 text-green-700 px-2.5 py-1 rounded text-xs font-semibold">Aktif</span></td>
+                    <tr class="border-b border-slate-50">
+                        <td class="p-4">${formatDate(b.tanggal)}</td>
+                        <td class="p-4 font-bold text-blue-600">${b.waktu_mulai} - ${b.waktu_selesai}</td>
+                        <td class="p-4">${b.nama_guru}</td>
+                        <td class="p-4">${b.mapel_kegiatan} <br><span class="text-xs text-slate-500">${b.kelas}</span></td>
                     </tr>
                 `;
             });
@@ -730,173 +596,79 @@
         function renderApprovalTable() {
             const tbody = document.getElementById('table-approval-body');
             tbody.innerHTML = '';
-
-            // Separate pending from others for prioritization
             let pendingList = allBookings.filter(b => b.status === 'Menunggu');
             let otherList = allBookings.filter(b => b.status !== 'Menunggu');
-            
-            // Sort pending by ascending (oldest requested first)
             pendingList.sort((a,b) => (a.createdAt?.toMillis() || 0) - (b.createdAt?.toMillis() || 0));
+            const combinedList = [...pendingList, ...otherList.slice(0, 10)]; 
 
-            const combinedList = [...pendingList, ...otherList.slice(0, 10)]; // show all pending + 10 recent others
-
-            if(combinedList.length === 0) {
-                 tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 text-sm">Belum ada pengajuan.</td></tr>`;
-                 return;
-            }
+            if(combinedList.length === 0) return tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400">Belum ada pengajuan.</td></tr>`;
 
             combinedList.forEach(b => {
                 const badgeClass = getStatusBadgeClass(b.status);
-                let btn = '';
+                let btn = b.status === 'Menunggu' ? `<button onclick="bukaResolusi('${b.id}')" class="bg-blue-600 text-white px-3 py-1 rounded text-xs">Tinjau</button>` : `<button onclick="bukaResolusi('${b.id}')" class="bg-slate-200 px-3 py-1 rounded text-xs">Ubah</button>`;
                 
-                if(b.status === 'Menunggu') {
-                    btn = `<button onclick="bukaResolusi('${b.id}')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded transition shadow-sm font-medium">Tinjau</button>`;
-                } else {
-                    btn = `<button onclick="bukaResolusi('${b.id}')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs px-3 py-1.5 rounded transition font-medium">Ubah Status</button>`;
-                }
-
-                const prioritasBadge = b.prioritas === 'ujian' ? `<span class="bg-purple-100 text-purple-700 text-[10px] px-1.5 py-0.5 rounded ml-2 font-bold uppercase tracking-wider">Ujian</span>` : '';
-
                 tbody.innerHTML += `
-                    <tr class="border-b border-slate-50 hover:bg-slate-50">
-                        <td class="p-4">
-                            <div class="font-medium text-slate-800">${formatDateShort(b.tanggal)}</div>
-                            <div class="text-xs text-slate-500 font-mono mt-0.5">${b.waktu_mulai}-${b.waktu_selesai}</div>
-                        </td>
-                        <td class="p-4">
-                            <div class="font-medium text-slate-700">${b.nama_guru}</div>
-                            <div class="text-xs text-slate-500">${b.mapel_kegiatan} ${prioritasBadge}</div>
-                        </td>
-                        <td class="p-4 text-xs text-slate-600 max-w-xs truncate" title="Tujuan: ${b.tujuan}\nCatatan: ${b.catatan_pengelola}">
-                            <div><span class="font-semibold">Tujuan:</span> ${b.tujuan || '-'}</div>
-                            <div class="mt-1"><span class="font-semibold">Status:</span> <span class="${badgeClass} !px-1.5 !py-0.5 !text-[10px]">${b.status}</span></div>
-                        </td>
-                        <td class="p-4 text-center">
-                            ${btn}
-                        </td>
+                    <tr class="border-b border-slate-50">
+                        <td class="p-4">${formatDateShort(b.tanggal)}<br><span class="text-xs text-slate-500">${b.waktu_mulai}-${b.waktu_selesai}</span></td>
+                        <td class="p-4">${b.nama_guru}<br><span class="text-xs">${b.mapel_kegiatan}</span></td>
+                        <td class="p-4"><span class="${badgeClass} px-1.5 py-0.5 text-[10px]">${b.status}</span></td>
+                        <td class="p-4 text-center">${btn}</td>
                     </tr>
                 `;
             });
         }
 
-
-        // -------------------------------------------------------------
-        // CRUD ACTIONS
-        // -------------------------------------------------------------
         window.hapusBooking = async function(id) {
-            if(!auth.currentUser) return;
-            // Note: Cannot use confirm(), using direct delete with a slight delay visual or simple logic.
-            // In a real robust app without alert/confirm restriction, we'd build a custom Confirm Modal.
-            // For now, let's just execute it as user initiated it intentionally.
             try {
                 await deleteDoc(doc(db, BOOKINGS_PATH, id));
-                showAlert("Dibatalkan", "Pengajuan berhasil dibatalkan dan dihapus.");
-            } catch (error) {
-                console.error(error);
-                showAlert("Gagal", "Tidak dapat menghapus data.");
-            }
+                showAlert("Dibatalkan", "Pengajuan berhasil dihapus.");
+            } catch (error) { showAlert("Gagal", "Tidak dapat menghapus data."); }
         }
 
         window.bukaResolusi = function(id) {
             const booking = allBookings.find(b => b.id === id);
             if(!booking) return;
-
             document.getElementById('res-id').value = id;
-            
-            // Set current values
-            const statusSelect = document.getElementById('res-status');
-            statusSelect.value = (booking.status === 'Menunggu') ? 'Disetujui' : booking.status;
-            
+            document.getElementById('res-status').value = (booking.status === 'Menunggu') ? 'Disetujui' : booking.status;
             document.getElementById('res-note').value = booking.catatan_pengelola || '';
-
             document.getElementById('modal-resolusi').classList.remove('hidden');
         }
 
         window.simpanResolusi = async function() {
-            if(!auth.currentUser) return;
             const id = document.getElementById('res-id').value;
             const status = document.getElementById('res-status').value;
             const note = document.getElementById('res-note').value;
-
             try {
-                await updateDoc(doc(db, BOOKINGS_PATH, id), {
-                    status: status,
-                    catatan_pengelola: note
-                });
+                await updateDoc(doc(db, BOOKINGS_PATH, id), { status: status, catatan_pengelola: note });
                 closeModal('modal-resolusi');
                 showAlert("Tersimpan", "Status pengajuan berhasil diperbarui.");
-            } catch(error) {
-                console.error(error);
-                showAlert("Error", "Gagal memperbarui status.");
-            }
+            } catch(error) { showAlert("Error", "Gagal memperbarui status."); }
         }
 
-
-        // -------------------------------------------------------------
-        // UTILITIES & NAVIGATION
-        // -------------------------------------------------------------
-        
         window.navigate = function(sectionId) {
-            // Hide all sections
             document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
-            // Remove active classes from nav buttons
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('bg-blue-600', 'text-white');
                 btn.classList.add('text-slate-300', 'hover:bg-slate-800');
             });
-
-            // Show active section
             document.getElementById('sec-' + sectionId).classList.remove('hidden');
-            
-            // Set active nav
             const actBtn = document.getElementById('nav-' + sectionId);
-            if(actBtn) {
-                actBtn.classList.add('bg-blue-600', 'text-white');
-                actBtn.classList.remove('text-slate-300', 'hover:bg-slate-800');
-            }
-
-            // Rerender specific views when navigated
+            if(actBtn) actBtn.classList.add('bg-blue-600', 'text-white');
             if(sectionId === 'jadwal') renderJadwal();
         }
 
         window.toggleMobileMenu = function() {
             const menu = document.getElementById('mobile-menu');
-            if(menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                menu.classList.add('flex');
-            } else {
-                menu.classList.add('hidden');
-                menu.classList.remove('flex');
-            }
+            menu.classList.toggle('hidden'); menu.classList.toggle('flex');
         }
-
-        window.closeModal = function(id) {
-            document.getElementById(id).classList.add('hidden');
-        }
-
+        window.closeModal = function(id) { document.getElementById(id).classList.add('hidden'); }
         window.showAlert = function(title, message) {
             document.getElementById('alert-title').innerText = title;
             document.getElementById('alert-message').innerText = message;
             document.getElementById('custom-alert').classList.remove('hidden');
-            
-            // Icon color based on title (simple logic)
-            const icon = document.getElementById('alert-icon');
-            icon.className = 'ph-fill text-4xl mb-3 ';
-            if(title.toLowerCase().includes('sukses') || title.toLowerCase().includes('berhasil') || title.toLowerCase().includes('tersimpan')) {
-                icon.className += 'ph-check-circle text-green-500';
-            } else if(title.toLowerCase().includes('gagal') || title.toLowerCase().includes('error')) {
-                icon.className += 'ph-x-circle text-red-500';
-            } else if(title.toLowerCase().includes('peringatan')) {
-                icon.className += 'ph-warning text-amber-500';
-            } else {
-                icon.className += 'ph-info text-blue-500';
-            }
         }
-
-        window.closeAlert = function() {
-            document.getElementById('custom-alert').classList.add('hidden');
-        }
-
+        window.closeAlert = function() { document.getElementById('custom-alert').classList.add('hidden'); }
+        
         function getStatusBadgeClass(status) {
             switch(status) {
                 case 'Disetujui': return 'bg-green-100 text-green-700 px-2 py-1 rounded-md text-xs font-semibold';
@@ -906,22 +678,10 @@
                 default: return 'bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs font-semibold';
             }
         }
+        function formatDate(dateStr) { return dateStr ? new Date(dateStr).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : '-'; }
+        function formatDateShort(dateStr) { return dateStr ? new Date(dateStr).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '-'; }
 
-        function formatDate(dateStr) {
-            if(!dateStr) return '-';
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateStr).toLocaleDateString('id-ID', options);
-        }
-        
-        function formatDateShort(dateStr) {
-            if(!dateStr) return '-';
-            const options = { day: 'numeric', month: 'short', year: 'numeric' };
-            return new Date(dateStr).toLocaleDateString('id-ID', options);
-        }
-
-        // Initialize Application
         init();
-
     </script>
 </body>
 </html>
